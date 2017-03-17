@@ -23,7 +23,8 @@ RUN cd /tmp/patch-2.5; ./configure --prefix=/usr; make; make install
 RUN cd /; rm -rf /tmp/patch-2.5
 
 RUN mkdir -p /root/.ssh
-RUN echo "Host *\n\tStrictHostKeyChecking no\n\n" > /root/.ssh/config
+RUN echo "Host *\n\tStrictHostKeyChecking no\n" > /root/.ssh/config
+RUN chown -R root:root /root/.ssh
 
 RUN apt-get -y purge software-properties-common && apt-get -y autoremove
 RUN rm -rf /var/lib/apt/lists/*
@@ -33,8 +34,8 @@ RUN id build 2>/dev/null || useradd --uid 1000 --create-home build
 RUN echo "build ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 
 RUN mkdir -p /home/build/.ssh
-RUN echo "Host *\n\tStrictHostKeyChecking no\n\n" > /home/build/.ssh/config
-RUN chown -R build:build ~/.ssh
+RUN echo "Host *\n\tStrictHostKeyChecking no\n" > /home/build/.ssh/config
+RUN chown -R build:build /home/build/.ssh
 
 # Default sh to bash
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
