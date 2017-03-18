@@ -13,7 +13,7 @@ RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree lzma pkg-con
 # Additional host packages
 RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim xutils-dev xmlto intltool
 
-RUN apt-get -y install regina-rexx lib32z1 autoconf bc flex bison sharutils ssh sudo
+RUN apt-get -y install regina-rexx lib32z1 autoconf bc flex bison sharutils ssh sudo realpath
 RUN apt-get -y install libtool lib32ncurses5-dev gettext g++-multilib doxygen ccache libiconv-hook1 libiconv-hook-dev
 
 # Build and install patch 2.5
