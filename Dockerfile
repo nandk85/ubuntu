@@ -27,6 +27,7 @@ RUN cd /tmp; wget http://security.ubuntu.com/ubuntu/pool/universe/j/jq/jq_1.2-8~
 RUN cd /tmp; DEBIAN_FRONTEND=noninteractive dpkg -i jq_1.2-8~ubuntu12.04.1_amd64.deb
 
 # Installing latest version of git to support all new features and formats
+RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get update
 RUN apt-get install -y git git-core
