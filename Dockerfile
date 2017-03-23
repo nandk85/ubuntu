@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y upgrade
 
 # Install the following utilities (required by poky)
-RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core texinfo unzip wget
+RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk texinfo unzip wget
 
 # Additional host packages required by poky/scripts/wic
 RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree lzma pkg-config zlib1g-dev php5-dev tcllib
@@ -25,6 +25,11 @@ RUN cd /; rm -rf /tmp/patch-2.5
 # Build and install jq
 RUN cd /tmp; wget http://security.ubuntu.com/ubuntu/pool/universe/j/jq/jq_1.2-8~ubuntu12.04.1_amd64.deb
 RUN cd /tmp; DEBIAN_FRONTEND=noninteractive dpkg -i jq_1.2-8~ubuntu12.04.1_amd64.deb
+
+# Installing latest version of git to support all new features and formats
+RUN add-apt-repository ppa:git-core/ppa
+RUN apt-get update
+RUN apt-get install -y git git-core
 
 RUN mkdir -p /root/.ssh
 RUN echo "Host *\n\tStrictHostKeyChecking no\n" > /root/.ssh/config
