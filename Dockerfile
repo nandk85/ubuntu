@@ -6,7 +6,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core libsdl1.2-dev texinfo unzip wget xterm
 
 # Additional host packages
-RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim
+RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq
 
 # Additional host packages required by poky/scripts/wic
 RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree
