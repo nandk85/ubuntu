@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y upgrade
 
 # Install the following utilities (required by poky)
-RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core texinfo unzip wget jq
+RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core texinfo unzip wget
 
 # Additional host packages required by poky/scripts/wic
 RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree lzma pkg-config zlib1g-dev php5-dev tcllib
@@ -21,6 +21,12 @@ RUN cd /tmp; wget ftp://ftp.gnu.org/gnu/patch/patch-2.5.tar.gz
 RUN cd /tmp; tar -xzf patch-2.5.tar.gz
 RUN cd /tmp/patch-2.5; ./configure --prefix=/usr; make; make install
 RUN cd /; rm -rf /tmp/patch-2.5
+
+# Build and install jq
+RUN cd /tmp; git clone https://github.com/stedolan/jq.git
+RUN cd /tmp/jq; autoreconf -i
+RUN cd /tmp/jq; ./configure --disable-maintainer-mode --prefix=/usr; make; make install
+RUN cd /; rm -rf /tmp/jq
 
 RUN mkdir -p /root/.ssh
 RUN echo "Host *\n\tStrictHostKeyChecking no\n" > /root/.ssh/config
