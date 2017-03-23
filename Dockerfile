@@ -23,8 +23,7 @@ RUN cd /tmp/patch-2.5; ./configure --prefix=/usr; make; make install
 RUN cd /; rm -rf /tmp/patch-2.5
 
 # Build and install jq
-RUN cd /tmp; git clone https://github.com/stedolan/jq.git
-RUN cd /tmp/jq; git submodule update --remote
+RUN cd /tmp; git clone --recursive https://github.com/stedolan/jq.git
 RUN cd /tmp/jq; autoreconf -i
 RUN cd /tmp/jq; ./configure --with-oniguruma=builtin YACC="$(which bison) -y" --disable-valgrind --enable-gcov --disable-maintainer-mode --prefix=/usr
 RUN cd /tmp/jq; make src/parser.c; make; make install
