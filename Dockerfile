@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y upgrade
 
 # Install the following utilities (required by poky)
-RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core texinfo unzip wget
+RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core texinfo unzip wget jq
 
 # Additional host packages required by poky/scripts/wic
 RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree lzma pkg-config zlib1g-dev php5-dev tcllib
