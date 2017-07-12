@@ -32,7 +32,7 @@ RUN cd /tmp; DEBIAN_FRONTEND=noninteractive dpkg -i jq_1.2-8~ubuntu12.04.1_amd64
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get update
-RUN apt-get --allow-unauthenticated install --force-yes git git-core
+RUN apt-get --allow-unauthenticated install git git-core -y
 
 RUN mkdir -p /root/.ssh
 RUN echo "Host *\n\tStrictHostKeyChecking no\n" > /root/.ssh/config
