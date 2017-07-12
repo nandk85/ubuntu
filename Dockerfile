@@ -10,6 +10,8 @@ RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk t
 # Additional host packages required by poky/scripts/wic
 RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree lzma pkg-config zlib1g-dev php5-dev tcllib
 
+RUN echo "10.45.16.232 gitlab.chs.cisco.com" >> /etc/hosts
+
 # Additional host packages
 RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim xutils-dev xmlto intltool
 
@@ -30,7 +32,7 @@ RUN cd /tmp; DEBIAN_FRONTEND=noninteractive dpkg -i jq_1.2-8~ubuntu12.04.1_amd64
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get update
-RUN apt-get install -y git git-core
+RUN apt-get --allow-unauthenticated install --force-yes git git-core
 
 RUN mkdir -p /root/.ssh
 RUN echo "Host *\n\tStrictHostKeyChecking no\n" > /root/.ssh/config
