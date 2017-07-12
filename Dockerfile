@@ -13,6 +13,8 @@ RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree
 
 RUN  apt-get -y install regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool
 
+RUN echo "10.45.16.232 gitlab.chs.cisco.com" >> /etc/hosts
+
 # Add "repo" tool (used by many Yocto-based projects)
 RUN curl http://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+x /usr/local/bin/repo
