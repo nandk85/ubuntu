@@ -24,12 +24,25 @@ RUN chmod a+x /usr/local/bin/repo
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
 RUN chmod 755 /usr/bin/jfrog
 
+# Create a non-root user that will perform the actual build
+RUN id build 2>/dev/null || useradd --uid 1000 --create-home build
+RUN echo "build ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
+
+# Fix error "Please use a locale setting which supports utf-8."
+# See https://wiki.yoctoproject.org/wiki/TipsAndTricks/ResolvingLocaleIssues
+RUN apt -y install locales && \
+  DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && \
+  locale-gen en_US.UTF-8 && \
+  update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+
 # Disable Host Key verification.
-RUN mkdir -p /root/.ssh
-RUN echo -e "Host *\n\tStrictHostKeyChecking no\n" > /root/.ssh/config
+RUN mkdir -p /home/build/.ssh
+RUN echo -e "Host *\n\tStrictHostKeyChecking no\n" > /home/build/.ssh/config
 
 # delete all the apt list files since they're big and get stale quickly
 RUN rm -rf /var/lib/apt/lists/*
 
 # overwrite this with 'CMD []' in a dependent Dockerfile
+USER build
+WORKDIR /home/build
 CMD ["/bin/bash"]
