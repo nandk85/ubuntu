@@ -38,11 +38,13 @@ RUN apt -y install locales && \
 # Disable Host Key verification.
 RUN mkdir -p /home/build/.ssh
 RUN echo -e "Host *\n\tStrictHostKeyChecking no\n" > /home/build/.ssh/config
+RUN chown -R build:build /home/build/.ssh
 
 # delete all the apt list files since they're big and get stale quickly
 RUN rm -rf /var/lib/apt/lists/*
 
 # overwrite this with 'CMD []' in a dependent Dockerfile
 USER build
+ENV USER build
 WORKDIR /home/build
 CMD ["/bin/bash"]
