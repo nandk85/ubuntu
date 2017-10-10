@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y sudo
 
 # Default sh to bash
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
