@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk git-core libsdl1.2-dev texinfo unzip wget xterm
 
 # Additional host packages
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq python
 
 # Additional host packages required by poky/scripts/wic
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree
