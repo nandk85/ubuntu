@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install software-properties-common python-software-properties
-RUN add-apt-repository ppa:jonathonf/python-3.6
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common python-software-properties
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:jonathonf/python-3.6
 RUN apt-get update
 RUN apt-get install -y sudo
 
