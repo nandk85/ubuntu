@@ -1,6 +1,8 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get -y upgrade
+RUN add-apt-repository ppa:jonathonf/python-3.6
+RUN apt-get update
 RUN apt-get install -y sudo
 
 # Default sh to bash
@@ -16,6 +18,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client coreutils l
 # Additional host packages required by poky/scripts/wic
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool cpio
+
+# install python 3 used by yocto packages to build
+RUN apt-get install -y python3.6 python3.6-dev python3-pip python3.6-venv
+
+# update pip
+RUN python3.6 -m pip install pip --upgrade
+RUN python3.6 -m pip install wheel
 
 # Add "repo" tool (used by many Yocto-based projects)
 RUN curl http://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
