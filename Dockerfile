@@ -23,6 +23,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y regina-rexx lib32z1 lib32s
 # install python 3 used by yocto packages to build
 RUN apt-get install -y python3.6 python3.6-dev python3-pip python3.6-venv
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-8-jdk
+
+# do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
+RUN ln -svT "/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)" /docker-java-home
+ENV JAVA_HOME /docker-java-home
+
 # update pip
 RUN python3.6 -m pip install pip --upgrade
 RUN python3.6 -m pip install wheel
