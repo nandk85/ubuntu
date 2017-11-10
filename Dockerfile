@@ -17,6 +17,12 @@ RUN  apt-get -y install regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison 
 RUN curl http://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+x /usr/local/bin/repo
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-8-jdk
+
+# do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
+RUN ln -svT "/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)" /docker-java-home
+ENV JAVA_HOME /docker-java-home
+
 # Install Jfrog cli utility to deploy artifacts
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
 RUN chmod 755 /usr/bin/jfrog
