@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential chrpath cu
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq python python-setuptools python-yaml device-tree-compiler
 
 # Additional host packages required by poky/scripts/wic
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool cpio libfdt-dev
 
 # install python 3 used by yocto packages to build
