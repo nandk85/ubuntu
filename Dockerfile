@@ -54,7 +54,13 @@ RUN apt -y install locales && \
   locale-gen en_US.UTF-8 && \
   update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
-# install chrome
+# install chrome and dependencies
+RUN apt-get update -qqy \
+  && apt-get -qqy install \
+       dumb-init gnupg wget ca-certificates apt-transport-https \
+       ttf-wqy-zenhei \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
   && apt-get update -qqy \
