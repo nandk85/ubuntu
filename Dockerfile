@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade
 
 # Install the following utilities (required by poky)
@@ -17,16 +18,31 @@ RUN  apt-get -y install regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison 
 RUN curl http://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+x /usr/local/bin/repo
 
+# install python 3 used by yocto packages to build
+RUN apt-get install -y python3.6 python3.6-dev python3-pip python3.6-venv
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jdk
 
 # do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
 RUN ln -svT "/usr/lib/jvm/java-7-openjdk-$(dpkg --print-architecture)" /docker-java-home
 ENV JAVA_HOME /docker-java-home
 
+# update pip packages
+RUN python3.6 -m pip install pip --upgrade
+RUN python3.6 -m pip install wheel selenium
+
 # Install Jfrog cli utility to deploy artifacts
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
 RUN chmod 755 /usr/bin/jfrog
 
+# install chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+  && apt-get update -qqy \
+  && apt-get -qqy install google-chrome-stable \
+  && rm /etc/apt/sources.list.d/google-chrome.list \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  
 # Create a non-root user that will perform the actual build
 RUN id build 2>/dev/null || useradd --uid 1000 --create-home build
 RUN echo "build ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
