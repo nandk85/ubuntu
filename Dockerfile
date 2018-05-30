@@ -10,7 +10,7 @@ RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk g
 RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq squashfs-tools 
 
 # Additional host packages required by poky/scripts/wic
-RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils
+RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils ca-certificates apt-transport-https
 
 RUN  apt-get -y install regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool libfdt-dev python-setuptools python-yaml device-tree-compiler
 
@@ -35,13 +35,7 @@ RUN python3.6 -m pip install wheel selenium
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
 RUN chmod 755 /usr/bin/jfrog
 
-# install chrome and dependencies
-RUN apt-get update -qqy \
-  && apt-get -qqy install \
-       dumb-init gnupg wget ca-certificates apt-transport-https \
-       ttf-wqy-zenhei \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
- 
+# install chrome
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
   && apt-get update -qqy \
