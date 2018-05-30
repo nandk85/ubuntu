@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential chrpath cu
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq python python-setuptools python-yaml device-tree-compiler
 
 # Additional host packages required by poky/scripts/wic
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils wget ca-certificates apt-transport-https
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool cpio libfdt-dev
 
 # install python 3 used by yocto packages to build
@@ -54,13 +54,7 @@ RUN apt -y install locales && \
   locale-gen en_US.UTF-8 && \
   update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
-# install chrome and dependencies
-RUN apt-get update -qqy \
-  && apt-get -qqy install \
-       dumb-init gnupg wget ca-certificates apt-transport-https \
-       ttf-wqy-zenhei \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-  
+# install chrome 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
   && apt-get update -qqy \
