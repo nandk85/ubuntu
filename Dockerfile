@@ -19,7 +19,7 @@ RUN curl http://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/
 RUN chmod a+x /usr/local/bin/repo
 
 # install python 3 used by yocto packages to build
-RUN apt-get install -y python3.6 python3.6-dev python3-pip python3.6-venv
+RUN apt-get install -y python3.4 python3.4-dev python3-pip python3.4-venv
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jdk
 
@@ -28,8 +28,8 @@ RUN ln -svT "/usr/lib/jvm/java-7-openjdk-$(dpkg --print-architecture)" /docker-j
 ENV JAVA_HOME /docker-java-home
 
 # update pip packages
-RUN python3.6 -m pip install pip --upgrade
-RUN python3.6 -m pip install wheel selenium
+RUN python3.4 -m pip install pip --upgrade
+RUN python3.4 -m pip install wheel selenium
 
 # Install Jfrog cli utility to deploy artifacts
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
