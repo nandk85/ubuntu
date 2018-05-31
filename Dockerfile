@@ -1,6 +1,7 @@
 FROM ubuntu:14.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get -y upgrade
 
 # Install the following utilities (required by poky)
@@ -42,6 +43,14 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
   && apt-get -qqy install google-chrome-stable \
   && rm /etc/apt/sources.list.d/google-chrome.list \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  
+# install chromdriver
+RUN wget -N http://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip -P ~/ \
+  && unzip ~/chromedriver_linux64.zip -d ~/ \
+  && rm ~/chromedriver_linux64.zip \
+  && sudo mv -f ~/chromedriver /usr/local/bin/chromedriver \
+  && sudo chown root:root /usr/local/bin/chromedriver \
+  && sudo chmod 0755 /usr/local/bin/chromedriver
   
 # Create a non-root user that will perform the actual build
 RUN id build 2>/dev/null || useradd --uid 1000 --create-home build
