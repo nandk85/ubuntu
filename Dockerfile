@@ -20,7 +20,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client coreutils l
 
 # Additional host packages required by poky/scripts/wic
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils wget ca-certificates apt-transport-https
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool cpio libfdt-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool cpio libfdt-dev quilt
 
 # install python 3 used by yocto packages to build
 RUN apt-get install -y python3.6 python3.6-dev python3-pip python3.6-venv
