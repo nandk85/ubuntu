@@ -15,7 +15,7 @@ RUN echo "10.45.16.232 gitlab.chs.cisco.com" >> /etc/hosts
 # Additional host packages
 RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim xutils-dev xmlto intltool
 
-RUN apt-get -y install regina-rexx lib32z1 autoconf bc flex bison sharutils ssh sudo realpath libmpc-dev
+RUN apt-get -y install regina-rexx lib32z1 autoconf bc flex bison sharutils ssh sudo realpath libmpc-dev quilt
 RUN apt-get -y install libtool lib32ncurses5-dev gettext g++-multilib doxygen ccache libiconv-hook1 libiconv-hook-dev
 
 RUN cd /usr/lib/x86_64-linux-gnu; ln -s libmpc.so.2.0.0 libmpc.so.3
