@@ -24,6 +24,10 @@ RUN cd /tmp; python get-pip.py
 
 RUN pip install requests 
 
+# Install Jfrog cli utility to deploy artifacts
+RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
+RUN chmod 755 /usr/bin/jfrog
+
 RUN cd /usr/lib/x86_64-linux-gnu; ln -s libmpc.so.2.0.0 libmpc.so.3
 
 # Build and install patch 2.5
