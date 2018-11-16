@@ -18,6 +18,12 @@ RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-comm
 RUN apt-get -y install regina-rexx lib32z1 autoconf bc flex bison sharutils ssh sudo realpath libmpc-dev quilt
 RUN apt-get -y install libtool lib32ncurses5-dev gettext g++-multilib doxygen ccache libiconv-hook1 libiconv-hook-dev
 
+# All Python packages
+RUN cd /tmp; curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+RUN cd /tmp; python get-pip.py
+
+RUN pip install requests 
+
 RUN cd /usr/lib/x86_64-linux-gnu; ln -s libmpc.so.2.0.0 libmpc.so.3
 
 # Build and install patch 2.5
