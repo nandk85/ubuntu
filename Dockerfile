@@ -21,6 +21,7 @@ RUN chmod a+x /usr/local/bin/repo
 
 # install python 3 used by yocto packages to build
 RUN apt-get install -y python3.4 python3.4-dev python3-pip python3.4-venv
+RUN apt-get install -y python-lzo
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jdk
 
@@ -28,9 +29,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jdk
 RUN ln -svT "/usr/lib/jvm/java-7-openjdk-$(dpkg --print-architecture)" /docker-java-home
 ENV JAVA_HOME /docker-java-home
 
+RUN python -m pip install requests crcmod
+
 # update pip packages
 RUN python3.4 -m pip install pip --upgrade
-RUN python3.4 -m pip install wheel selenium
+RUN python3.4 -m pip install wheel selenium requests crcmod
 
 # Install Jfrog cli utility to deploy artifacts
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
