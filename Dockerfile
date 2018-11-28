@@ -20,6 +20,7 @@ RUN curl http://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/
 RUN chmod a+x /usr/local/bin/repo
 
 # install python 3 used by yocto packages to build
+RUN apt-get install -y python python-dev python-pip python-venv
 RUN apt-get install -y python3.4 python3.4-dev python3-pip python3.4-venv
 RUN apt-get install -y python-lzo
 
