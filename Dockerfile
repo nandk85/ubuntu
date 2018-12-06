@@ -45,11 +45,11 @@ RUN pip2 install ubi_reader
 
 # Build and install openssl
 RUN apt-get install -y libjson0-dev libjson0 libcurl4-openssl-dev libtool
-RUN wget -q https://openssl.org/source/openssl-1.0.2h.tar.gz ~/ \
-  && tar -xzf ~/openssl-1.0.2h.tar.gz \
+RUN wget -N https://openssl.org/source/openssl-1.0.2h.tar.gz -P ~/ \
+  && tar -xzf ~/openssl-1.0.2h.tar.gz -C /tmp \
   && rm -rf ~/openssl-1.0.2h.tar.gz
 
-RUN cd ~/openssl-1.0.2h \
+RUN cd /tmp/openssl-1.0.2h \
   && ./config --prefix=/usr --openssldir=/usr/lib/openssl -fPIC shared \
   && make depend \
   && make \
