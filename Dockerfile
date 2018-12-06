@@ -43,6 +43,18 @@ RUN chmod 755 /usr/bin/jfrog
 # install ubi_reader
 RUN pip2 install ubi_reader
 
+# Build and install openssl
+RUN apt-get install -y libjson0-dev libjson0 libcurl4-openssl-dev libtool
+RUN wget -q https://openssl.org/source/openssl-1.0.2h.tar.gz ~/ \
+  && tar -xzf ~/openssl-1.0.2h.tar.gz \
+  && rm -rf ~/openssl-1.0.2h.tar.gz
+
+RUN cd ~/openssl-1.0.2h \
+  && ./config --prefix=/usr --openssldir=/usr/lib/openssl -fPIC shared \
+  && make depend \
+  && make \
+  && make install
+
 # install chrome
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
