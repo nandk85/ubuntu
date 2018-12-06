@@ -40,6 +40,9 @@ RUN python3.4 -m pip install wheel selenium requests crcmod
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
 RUN chmod 755 /usr/bin/jfrog
 
+# install ubi_reader
+RUN pip2 install ubi_reader
+
 # install chrome
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
