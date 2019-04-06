@@ -34,14 +34,14 @@ RUN python -m pip install requests crcmod
 
 # update pip packages
 RUN python3.4 -m pip install pip --upgrade
-RUN python3.4 -m pip install wheel selenium requests crcmod
+RUN python3.4 -m pip install wheel selenium requests crcmod artifactory
 
 # Install Jfrog cli utility to deploy artifacts
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
 RUN chmod 755 /usr/bin/jfrog
 
 # install ubi_reader
-RUN pip2 install ubi_reader
+RUN pip2 install ubi_reader artifactory
 
 # Build and install openssl
 RUN apt-get install -y libjson0-dev libjson0 libcurl4-openssl-dev libtool
