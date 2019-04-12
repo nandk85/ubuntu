@@ -22,7 +22,7 @@ RUN apt-get -y install libtool lib32ncurses5-dev gettext g++-multilib doxygen cc
 RUN cd /tmp; curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 RUN cd /tmp; python get-pip.py
 
-RUN pip install requests 
+RUN pip install wheel requests crcmod artifactory
 
 # Install Jfrog cli utility to deploy artifacts
 RUN cd /usr/bin; curl -fL https://getcli.jfrog.io | sh
