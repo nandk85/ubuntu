@@ -11,7 +11,7 @@ RUN apt-get install -y build-essential chrpath curl diffstat gcc-multilib gawk g
 RUN apt-get install -y openssh-client coreutils libreadline-dev rpcbind nfs-common vim jq squashfs-tools quilt mtd-utils
 
 # Additional host packages required by poky/scripts/wic
-RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils ca-certificates apt-transport-https
+RUN apt-get install -y bzip2 dosfstools mtools parted syslinux tree gettext parallel bsdmainutils ca-certificates apt-transport-https dos2unix
 
 RUN  apt-get -y install regina-rexx lib32z1 lib32stdc++6 autoconf bc flex bison libtool libfdt-dev python-setuptools python-yaml device-tree-compiler
 
