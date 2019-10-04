@@ -53,6 +53,9 @@ RUN apt -y install locales && \
   DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && \
   locale-gen en_US.UTF-8 && \
   update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+  
+RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/profile \
+  && echo "export LANG=en_US.UTF-8" >> /etc/profile
 
 # install chrome 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
