@@ -49,14 +49,14 @@ RUN echo "build ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 
 # Fix error "Please use a locale setting which supports utf-8."
 # See https://wiki.yoctoproject.org/wiki/TipsAndTricks/ResolvingLocaleIssues
+RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/profile \
+  && echo "export LANG=en_US.UTF-8" >> /etc/profile
+  
 RUN apt -y install locales && \
   DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && \
   locale-gen en_US.UTF-8 && \
   update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
   
-RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/profile \
-  && echo "export LANG=en_US.UTF-8" >> /etc/profile
-
 # install chrome 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
