@@ -52,11 +52,21 @@ RUN echo "build ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/profile \
   && echo "export LANG=en_US.UTF-8" >> /etc/profile
   
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
+  && echo "LANG=en_US.UTF-8" >> /etc/environment
+
 RUN apt -y install locales && \
   DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && \
   locale-gen en_US.UTF-8 && \
   update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
   
+# install code-server
+RUN mkdir ~/code-server \
+  && wget --no-check-certificate -qO- https://github.com/cdr/code-server/releases/download/2.1692-vsc1.39.2/code-server2.1692-vsc1.39.2-linux-x86_64.tar.gz | tar xvz --strip-components=1 -C ~/code-server
+
+RUN mv ~/code-server/code-server /usr/sbin/code-server \
+   && rm -rf ~/code-server
+
 # install chrome 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
@@ -85,4 +95,10 @@ RUN rm -rf /var/lib/apt/lists/*
 USER build
 ENV USER build
 WORKDIR /home/build
+
+VOLUME [ "/home/build/project" ]
+
+EXPOSE 8080
+EXPOSE 8443
+
 CMD ["/bin/bash"]
